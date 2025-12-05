@@ -8,6 +8,8 @@ import datetime #Neeed to access current and future date validation
 flower_menu = pd.read_excel('BoqPrices.xlsx') # Reading in and creating a variable for bouquet prices
 accessory_menu = pd.read_excel('accessory.xlsx') # Reading in and creating a variable for accessory prices
 
+
+
 #This function asks the user if they want to order flowers
 #If they do the program returns to the main code and continues the program
 #If not program exits
@@ -209,9 +211,9 @@ def get_deliver_date():
 #This could have probably been done without being quite so bulky but I was kind of rushing
 #Near the end 
 #We use the xlsxwriter module to create the file, name sheets, create formats so that the 
-#information looks correct in the excel fil, even set column sizes 
+#information looks correct in the excel file, even set column sizes 
 #We have to loop through the order list to make sure we get all of the accessories
-#"If there is any and get their prices
+#If there is any and get their prices
 #In the file we add all of the accessories and bouquet together and add tax to
 #find the total amount 
 #We name the excel file as order report and the users customer ID
@@ -281,7 +283,7 @@ def write_to_excel(f,l,e,n,user_ID,h,r,c,z,rf,rl,rh,rr,rc,rz,d_date,o_date, cell
     order_info.write(1,10, "Total w/ Tax")
     order_info.write_formula(2, 10, '=I3*1.06', currency_format)
     order_file.close()
-    return filename
+    return filename, order_file
             
 #Welcome Guests
 print("Hello! Welcome to Bree's Flower Boutique!")
@@ -333,7 +335,7 @@ print("We do need at least 3 days notice\n")
 #Find out desired deliver date and create current date 
 d_date, o_date = get_deliver_date()
 #We send all of our information the be written into a excel file 
-filename = write_to_excel(f,l,e,n,user_ID,h,r,c,z,rf,rl,rh,rr,rc,rz,d_date,o_date, cell, order, boq)
+filename, order_file = write_to_excel(f,l,e,n,user_ID,h,r,c,z,rf,rl,rh,rr,rc,rz,d_date,o_date, cell, order, boq)
 
 #Then we display user information from file 
 print("\nHere is your information\n")
@@ -349,6 +351,20 @@ print(recip_info)
 print("And your receipt for your records\n")
 receipt_info = pd.read_excel(filename, sheet_name = 2)
 print(receipt_info)
+
+#Here we convert the xlsx files to csv files
+flower_menu_csv = 'BoqPrices.csv'
+accessory_menu_csv = 'accessory.csv'
+user_csv = f"User_{user_ID}.csv"
+recip_csv = f"Recip_{user_ID}.csv"
+receipt_csv = f"Receipt_{user_ID}.csv"
+
+flower_menu.to_csv(flower_menu_csv, index=False) 
+accessory_menu.to_csv(accessory_menu_csv, index=False)
+your_info.to_csv(user_csv, index = False)
+recip_info.to_csv(recip_csv, index = False)
+receipt_info.to_csv(receipt_csv, index = False)
+
 
 #Thanks user for order
 print("\nThank you so much for shopping with us! Come again!\n")
