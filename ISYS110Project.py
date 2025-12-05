@@ -340,7 +340,7 @@ print("\nHere is your information\n")
 your_info = pd.read_excel(filename, sheet_name = 0)
 print(your_info)
 
-#Then we display recipient  information from file 
+#Then we display recipient information from file 
 print("\nHere is the recipients information\n")
 recip_info = pd.read_excel(filename, sheet_name = 1)
 print(recip_info)
