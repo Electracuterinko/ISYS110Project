@@ -352,3 +352,5 @@ print(receipt_info)
 
 #Thanks user for order
 print("\nThank you so much for shopping with us! Come again!\n")
+
+
